@@ -1,0 +1,112 @@
+﻿<Window x:Class="WpfTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTest"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        TextElement.Foreground="{StaticResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{StaticResource MaterialDesignPaper}"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        Title="BlueScreen" Height="500" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None">
+    <Grid Background="#2c3e50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" MouseDown="window_Drag" Background="#2c3e50">
+            <DockPanel HorizontalAlignment="Right">
+                <Button x:Name="exitButton" Style="{StaticResource MaterialDesignToolButton}" Click="exitButton_Click" Foreground="#FFECF0F1" Height="30" Margin="0, 0, 10 ,0">
+                    <materialDesign:PackIcon Kind="Close" Width="Auto" Height="Auto"/>
+                </Button>
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <dragablz:TabablzControl x:Name="menu" SelectionChanged="TabablzControl_SelectionChanged" FixedHeaderCount="5" TabStripPlacement="Left" BorderBrush="#2c3e50" Background="#ecf0f1">
+                <dragablz:TabablzControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type dragablz:DragablzItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemVerticalStyle}">
+                        <Setter Property="Width" Value="150" />
+                        <Setter Property="Height" Value="40" />
+                    </Style>
+                </dragablz:TabablzControl.ItemContainerStyle>
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController />
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem Header="BlueScreen">
+                    <StackPanel Margin="16">
+                        <materialDesign:Card Padding="32">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">BlueScreen</TextBlock>
+                                <TextBlock Margin="0, 10, 0, 0" Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap">Triggers Blue Screen of Death (BSoD) with undocumented WinAPI function NtRaiseHardError.</TextBlock>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <Button x:Name="startButton" Content="Start" Margin="0, 16, 0, 0" Click="Button_Click"/>
+                        <ProgressBar x:Name="progressBar" Margin="0, 16, 0, 0" IsIndeterminate="False" Visibility="Hidden"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Keylogger Test">
+                    <StackPanel Margin="16">
+                        <materialDesign:Card Padding="32">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">KeyLogger Test</TextBlock>
+                                <TextBlock Margin="0, 10, 0, 0" Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap">Very basic keylogger using GetAsyncKeyState. Try pressing some keys.</TextBlock>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Padding="32" Margin="0,10,0,0">
+                            <StackPanel>
+                                <TextBlock x:Name="keyloggerTextBlock" Margin="0, 10, 0, 0" Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap"></TextBlock>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Block Clipboard">
+                    <StackPanel Margin="16">
+                        <materialDesign:Card Padding="32">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Block Clipboard</TextBlock>
+                                <TextBlock Margin="0, 10, 0, 0" Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap">Blocks clipboard by keeping it open for current application with OpenClipboard function.</TextBlock>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <Button x:Name="clipBoardStartButton" Content="Start" Margin="0, 16, 0, 0" Click="clipBoardBlockStart_Click"/>
+                        <Button x:Name="clipBoardStopButton" Content="Stop" IsEnabled="False" Margin="0, 16, 0, 0" Click="clipBoardBlockStop_Click"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Destroy Windows UI">
+                    <StackPanel Margin="16">
+                        <materialDesign:Card Padding="32">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Destroy Windows UI</TextBlock>
+                                <TextBlock Margin="0, 10, 0, 0" Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap">Destroys Windows UI by killing explorer process.</TextBlock>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <Button x:Name="killExplorerStartButton" Content="Start" Margin="0, 16, 0, 0" Click="killExplorerStart_Click"/>
+                        <Button x:Name="killExplorerStopButton" Content="Restore" IsEnabled="False" Margin="0, 16, 0, 0" Click="killExplorerStop_Click"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="         Change&#x0a;Modification Date">
+                    <StackPanel Margin="16">
+                        <materialDesign:Card Padding="32">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Change Modification Date</TextBlock>
+                                <TextBlock Margin="0, 10, 0, 0" Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap">Changes Modification Date by WinAPI functions.</TextBlock>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <StackPanel Margin="0, 16, 0, 0">
+                            <DatePicker x:Name="datePicker" materialDesign:HintAssist.Hint="Select date" SelectedDateChanged="datePicker_SelectedDateChanged"/>
+                            <materialDesign:TimePicker x:Name="timePicker" TextBoxBase.TextChanged="timePicker_TextChanged"/>
+                        </StackPanel>
+                        <Button x:Name="changeButton" Content="Change" Margin="0, 16, 0, 0" IsEnabled="False" Click="change_Click"/>
+                    </StackPanel>
+                </TabItem>
+            </dragablz:TabablzControl>
+        </Grid>
+    </Grid>
+</Window>
