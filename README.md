@@ -1,4 +1,4 @@
-# WinApi Custom Tool Set
+# Win Api Custom ToolSet
 
 ![Screenshot of the application](https://i.imgur.com/G1oALqC.png)
 Application for testing some of the WinApi functions.
